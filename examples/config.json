@@ -1,0 +1,22 @@
+{
+  "version": 1,
+  "roles": {
+    "count": 3,
+    "assignments": ["developer", "tester", "designer"],
+    "custom": []
+  },
+  "model": {
+    "default": "sonnet",
+    "lead": "inherit",
+    "override": {}
+  },
+  "workflow": {
+    "commit_per_task": true,
+    "quality_gates": true,
+    "auto_focus": true,
+    "min_tasks_per_cycle": 5,
+    "reschedule_interval": 3
+  },
+  "focus": null,
+  "exclude_paths": ["node_modules", "vendor", ".git", "dist", "build", "__pycache__"]
+}

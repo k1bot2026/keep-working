@@ -1,0 +1,37 @@
+{
+  "name": "keep-working-cc",
+  "version": "1.0.0",
+  "description": "Autonomous AI agent team that continuously works on your project. Fire and forget — agents analyze, plan, execute, and loop until you say stop.",
+  "author": "",
+  "license": "MIT",
+  "bin": {
+    "keep-working": "bin/install.cjs"
+  },
+  "keywords": [
+    "claude-code",
+    "ai-agents",
+    "autonomous",
+    "agent-teams",
+    "continuous-work",
+    "productivity",
+    "automation"
+  ],
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "files": [
+    "bin/",
+    "commands/",
+    "agents/",
+    "templates/",
+    "references/",
+    "examples/",
+    "README.md",
+    "LICENSE",
+    "CHANGELOG.md"
+  ]
+}
