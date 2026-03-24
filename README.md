@@ -205,6 +205,8 @@ MIT
 
 ## Credits
 
+- [GitHub Repository](https://github.com/k1bot2026/keep-working)
+
 Inspired by the architectural patterns of:
 - [Get Shit Done (GSD)](https://github.com/gsd-build/get-shit-done) — Orchestrator pattern, deviation rules, state management
 - [Superpowers](https://github.com/obra/superpowers) — Skill structure, verification gates, context isolation

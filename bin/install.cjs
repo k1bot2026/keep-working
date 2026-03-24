@@ -192,7 +192,7 @@ async function main() {
   log(`  ${CYAN}/keep-working focus:tests${RESET}  Focus on testing`);
   log(`  ${CYAN}/keep-working reschedule:on${RESET} Enable session save`);
   log('');
-  log(`${DIM}Docs: https://github.com/YOUR_USERNAME/keep-working${RESET}`);
+  log(`${DIM}Docs: https://github.com/k1bot2026/keep-working${RESET}`);
   log('');
 }
 
