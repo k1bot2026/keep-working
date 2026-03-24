@@ -59,6 +59,39 @@ Check if `.keep-working/config.json` exists in the project root.
 5. Load role mapping from `@references/project-profiles.md`
 6. Select the 3 most appropriate agent roles for this project
 7. If `focus:<area>` is specified, weight role selection toward that area
+8. **Discover available Skills and MCP servers** (see Phase 2b)
+
+### Phase 2b: Skills & MCP Discovery
+
+Detect what tools are available to the agents beyond the defaults:
+
+1. **Installed Skills:** Check for skill commands in the session:
+   - Look at the skills list for available slash commands (superpowers:*, gsd:*, project-specific skills)
+   - Note any skills that agents could invoke during their work (e.g., `superpowers:test-driven-development`, `superpowers:systematic-debugging`)
+
+2. **Active MCP Servers:** Check `.mcp.json` in the project root and `~/.claude/.mcp.json` for configured MCP servers:
+   - Read the file and list available server names and their capabilities
+   - Common MCPs: Playwright (browser), Docker, database connectors, API tools
+
+3. **Project-level agent overrides:** Check `.keep-working/agents/` for custom agent definitions that override built-in ones.
+
+4. **Record in config.json:**
+   ```json
+   {
+     "tools": {
+       "skills": ["superpowers:test-driven-development", "superpowers:systematic-debugging"],
+       "mcp_servers": ["playwright", "docker"],
+       "custom_agents": []
+     }
+   }
+   ```
+
+5. **Include in agent prompts:** When spawning agents, tell them which extra tools are available:
+   - "You have access to Playwright MCP for browser testing"
+   - "Use the superpowers:test-driven-development skill when writing tests"
+   - "Docker MCP is available for container management"
+
+Agents should ALWAYS use project-installed skills and MCPs when relevant to their work. They don't need permission — if the tool is installed, it's available.
 
 ### Phase 3: Initialize State Directory
 

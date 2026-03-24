@@ -50,8 +50,11 @@ cd my-project
 | `/keep-working` | Start autonomous agent team |
 | `/keep-working:stop` | Graceful shutdown with session summary |
 | `/keep-working:status` | Check progress without interrupting |
+| `/keep-working:backlog` | View task backlog and priority breakdown |
 | `/keep-working:resume` | Resume a previous session |
 | `/keep-working:add-task <desc>` | Inject a task mid-session |
+| `/keep-working:feed <info>` | Share new info/data/links with the team |
+| `/keep-working:suggest <idea>` | Suggest an approach or action to the team |
 
 ### Options
 
@@ -160,6 +163,37 @@ Edit `.keep-working/config.json` to customize:
 ### Custom Agent Roles
 
 Create custom agent definitions in `.keep-working/agents/` in your project. These take priority over built-in agents. See `agents/kw-developer.md` for the format.
+
+## Mid-Session Communication
+
+While the team is working, you can interact without breaking the loop:
+
+```bash
+# Share new information (requirements, links, data)
+/keep-working:feed The API base URL changed to https://api.v2.example.com
+
+# Suggest an approach
+/keep-working:suggest Use TanStack Query instead of raw fetch for data fetching
+
+# View the backlog
+/keep-working:backlog
+
+# Add a specific task
+/keep-working:add-task Write E2E tests for the checkout flow
+
+# Check overall progress
+/keep-working:status
+```
+
+## Skills & MCP Integration
+
+Keep Working automatically discovers and uses installed tools:
+
+- **Skills** — If Superpowers, GSD, or custom skills are installed, agents use them (e.g., `superpowers:test-driven-development` when writing tests)
+- **MCP Servers** — If Playwright, Docker, or other MCPs are configured in `.mcp.json`, agents use them for browser testing, container management, etc.
+- **Project Skills** — Any skills in `.claude/skills/` are available to agents
+
+Agents don't need permission — if a tool is installed, they use it when relevant. The lead detects available tools at startup and includes them in agent prompts.
 
 ## Architecture
 

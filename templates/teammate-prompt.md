@@ -38,6 +38,28 @@ Read your full agent definition for role-specific behavior:
 - Report all progress via SendMessage to the lead
 - This prevents multiple agents from overwriting each other's changes
 
+## Available Tools & Skills
+[ONLY INCLUDE THIS SECTION IF TOOLS WERE DISCOVERED IN PHASE 2b]
+
+Beyond your standard tools (Read, Write, Edit, Bash, Grep, Glob), you have access to:
+
+**Skills (invoke via Skill tool):**
+[LIST_OF_AVAILABLE_SKILLS — e.g.:]
+- `superpowers:test-driven-development` — Use when writing tests
+- `superpowers:systematic-debugging` — Use when investigating bugs
+
+**MCP Servers:**
+[LIST_OF_AVAILABLE_MCPS — e.g.:]
+- Playwright — Browser automation, screenshots, testing
+- Docker — Container management, logs, exec
+
+**Usage rules:**
+- USE these tools whenever they are relevant to your task — they are installed and available
+- Skills are invoked via the `Skill` tool: `Skill(skill="skill-name")`
+- MCP tools are available as `mcp__servername__toolname`
+- You do NOT need permission to use installed tools
+- If a task would benefit from a tool you have access to, use it
+
 ## When No Tasks Remain
 Look for self-directed work based on your role's idle-work patterns.
 Your agent definition lists role-specific things to look for.

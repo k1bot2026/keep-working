@@ -1,5 +1,15 @@
 # Changelog
 
+## [1.1.0] - 2026-03-24
+
+### Added
+- `/keep-working:feed` — Share info, data, links, requirements with the team mid-session
+- `/keep-working:suggest` — Suggest approaches and actions to agents without disrupting workflow
+- `/keep-working:backlog` — View task backlog and priority breakdown (read-only)
+- Skills & MCP discovery — agents auto-detect and use installed skills (Superpowers, GSD) and MCP servers (Playwright, Docker, etc.)
+- Tools section in agent prompts — agents know what extra capabilities are available
+- Tools section in config.json — tracks discovered skills and MCP servers
+
 ## [1.0.0] - 2026-03-24
 
 ### Added

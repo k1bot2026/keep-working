@@ -184,9 +184,14 @@ async function main() {
   log(`  ${DIM}In any project directory:${RESET}`);
   log(`  ${CYAN}/keep-working${RESET}              Start autonomous team`);
   log(`  ${CYAN}/keep-working:stop${RESET}         Stop and get summary`);
+  log('');
+  log(`${BOLD}During a session:${RESET}`);
   log(`  ${CYAN}/keep-working:status${RESET}       Check progress`);
+  log(`  ${CYAN}/keep-working:backlog${RESET}      View task breakdown`);
+  log(`  ${CYAN}/keep-working:add-task${RESET}     Add a task`);
+  log(`  ${CYAN}/keep-working:feed${RESET}         Share info with team`);
+  log(`  ${CYAN}/keep-working:suggest${RESET}      Suggest an approach`);
   log(`  ${CYAN}/keep-working:resume${RESET}       Resume previous session`);
-  log(`  ${CYAN}/keep-working:add-task${RESET}     Add a task mid-session`);
   log('');
   log(`${DIM}Options:${RESET}`);
   log(`  ${CYAN}/keep-working focus:tests${RESET}  Focus on testing`);
