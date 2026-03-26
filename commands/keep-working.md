@@ -118,7 +118,14 @@ Create `.keep-working/` in the project root with these files:
      "focus": "<area or null>",
      "cycles_completed": 0,
      "tasks_completed": 0,
-     "started": "<ISO timestamp>"
+     "started": "<ISO timestamp>",
+     "token_guard": {
+       "enabled": true,
+       "window_hours": 5,
+       "inactivity_threshold_minutes": 5,
+       "auto_resume": true,
+       "notify": true
+     }
    }
    ```
 
@@ -156,6 +163,21 @@ For each agent's prompt, use the template from `@templates/teammate-prompt.md` a
 - Reference to the agent's definition file in `@agents/kw-<role>.md`
 - Lead name (your team identity)
 - Quality gate commands for this tech stack (from `@references/quality-gates.md`)
+
+### Phase 4b: Start Token Guard
+
+If `token_guard.enabled` is true in config (default: true), spawn the background guard:
+
+```bash
+nohup bash ~/.claude/keep-working/bin/token-guard.sh "<absolute project path>" > /dev/null 2>&1 &
+```
+
+Store the guard PID in config.json under `guard_pid`. The guard will:
+- Monitor for inactivity (tokens exhausted → agents stopped)
+- Auto-wait until the token window resets
+- Auto-resume the session via `claude -c -p "/keep-working:resume"`
+
+The guard runs independently of the Claude session — it survives token exhaustion.
 
 ### Phase 5: Lead Behavior (the infinite loop)
 

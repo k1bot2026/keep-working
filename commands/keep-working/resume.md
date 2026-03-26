@@ -68,7 +68,21 @@ with the highest priority unchecked tasks assigned to your role."
 summary="Session resumed, check backlog"
 ```
 
-### 7. Continue Normal Loop
+### 7. Clean Up Token State & Restart Guard
+
+If `.keep-working/.token-state.json` exists:
+- Read it to note the pause reason (log in SESSION-LOG.md)
+- Delete the file: `rm .keep-working/.token-state.json`
+
+If `token_guard.enabled` in config:
+- Kill any existing guard: read `.guard.pid`, `kill` if alive
+- Start a fresh guard:
+  ```bash
+  nohup bash ~/.claude/keep-working/bin/token-guard.sh "<project-path>" > /dev/null 2>&1 &
+  ```
+- Update `guard_pid` in config.json
+
+### 8. Continue Normal Loop
 
 From here, follow the standard lead behavior from `@references/lead-protocol.md`.
 The infinite cycle continues as normal.

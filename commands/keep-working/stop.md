@@ -88,13 +88,24 @@ If `.keep-working/config.json` exists, ask the user:
 - **Keep state** — for resuming later with `/keep-working:resume`
 - **Clean up** — remove `.keep-working/` directory
 
-### 9. Shutdown Teammates
+### 9. Stop Token Guard
+
+If `.keep-working/.guard.pid` exists:
+```bash
+guard_pid=$(cat .keep-working/.guard.pid 2>/dev/null)
+if [ -n "$guard_pid" ]; then
+  kill "$guard_pid" 2>/dev/null || true
+  rm -f .keep-working/.guard.pid .keep-working/.guard-stop .keep-working/.token-state.json
+fi
+```
+
+### 10. Shutdown Teammates
 
 ```
 SendMessage type="shutdown_request" to each teammate (by name)
 ```
 
-### 10. Delete Team
+### 11. Delete Team
 
 ```
 TeamDelete

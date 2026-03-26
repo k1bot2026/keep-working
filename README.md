@@ -55,6 +55,7 @@ cd my-project
 | `/keep-working:add-task <desc>` | Inject a task mid-session |
 | `/keep-working:feed <info>` | Share new info/data/links with the team |
 | `/keep-working:suggest <idea>` | Suggest an approach or action to the team |
+| `/keep-working:wait` | Save state and wait for token reset (auto-resume) |
 
 ### Options
 
@@ -184,6 +185,51 @@ While the team is working, you can interact without breaking the loop:
 # Check overall progress
 /keep-working:status
 ```
+
+## Token Guard — Auto-Wait & Resume
+
+For Claude Max users with token windows that reset every ~5 hours. Keep Working automatically detects when tokens are exhausted, waits for the reset, and resumes work — truly autonomous.
+
+```
+Agents working → Tokens exhausted → All processes stop
+                                     ↓
+              Token Guard detects inactivity (background bash script)
+                                     ↓
+              Waits until token window resets (~5 hours)
+                                     ↓
+              Sends macOS notification → Auto-starts new session
+                                     ↓
+              /keep-working:resume → Agents back at work → ∞
+```
+
+**Enabled by default.** Configure in `.keep-working/config.json`:
+
+```json
+{
+  "token_guard": {
+    "enabled": true,
+    "window_hours": 5,
+    "inactivity_threshold_minutes": 5,
+    "auto_resume": true,
+    "notify": true
+  }
+}
+```
+
+**Manual trigger:** If you know you're about to hit the limit:
+```bash
+/keep-working:wait    # Save state, wait for reset, auto-resume
+```
+
+**How it works:**
+- A lightweight bash script runs in the background (zero API token usage)
+- Monitors `.keep-working/PROGRESS.md` file modification time
+- When no activity for 5+ minutes → assumes tokens exhausted
+- Sleeps until the calculated reset time
+- Sends a desktop notification
+- Starts a new Claude session with `/keep-working:resume`
+
+**Cancel the wait:** `touch .keep-working/.guard-stop`
 
 ## Skills & MCP Integration
 

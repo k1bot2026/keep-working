@@ -1,5 +1,15 @@
 # Changelog
 
+## [1.2.0] - 2026-03-27
+
+### Added
+- **Token Guard** — Background watchdog that detects token exhaustion and auto-resumes after the window resets
+- `/keep-working:wait` — Manual save-and-wait trigger for when you know the limit is approaching
+- `token_guard` config section — configure window hours, inactivity threshold, auto-resume, notifications
+- `bin/token-guard.sh` — Lightweight bash script (zero API token usage) that monitors, waits, and resumes
+- Cross-platform notifications (macOS `osascript`, Linux `notify-send`)
+- Guard lifecycle management — auto-start at session begin, auto-stop at session end, restart on resume
+
 ## [1.1.0] - 2026-03-24
 
 ### Added

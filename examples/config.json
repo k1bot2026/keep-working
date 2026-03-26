@@ -18,5 +18,12 @@
     "reschedule_interval": 3
   },
   "focus": null,
-  "exclude_paths": ["node_modules", "vendor", ".git", "dist", "build", "__pycache__"]
+  "exclude_paths": ["node_modules", "vendor", ".git", "dist", "build", "__pycache__"],
+  "token_guard": {
+    "enabled": true,
+    "window_hours": 5,
+    "inactivity_threshold_minutes": 5,
+    "auto_resume": true,
+    "notify": true
+  }
 }

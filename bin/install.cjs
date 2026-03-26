@@ -157,6 +157,16 @@ async function main() {
   const refCount = copyRecursive(refSrc, refDest);
   success(`References installed (${refCount} files)`);
 
+  // Copy bin scripts (token-guard, etc.)
+  const binSrc = path.join(PACKAGE_DIR, 'bin', 'token-guard.sh');
+  const binDest = path.join(kwDir, 'bin', 'token-guard.sh');
+  fs.mkdirSync(path.join(kwDir, 'bin'), { recursive: true });
+  if (fs.existsSync(binSrc)) {
+    fs.copyFileSync(binSrc, binDest);
+    fs.chmodSync(binDest, 0o755);
+    success('Token Guard script installed');
+  }
+
   // Copy example config
   const exSrc = path.join(PACKAGE_DIR, 'examples');
   const exDest = path.join(kwDir, 'examples');
