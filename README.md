@@ -56,6 +56,7 @@ cd my-project
 | `/keep-working:feed <info>` | Share new info/data/links with the team |
 | `/keep-working:suggest <idea>` | Suggest an approach or action to the team |
 | `/keep-working:wait` | Save state and wait for token reset (auto-resume) |
+| `/keep-working:local-status` | Check LocalAI integration status and savings |
 
 ### Options
 
@@ -65,6 +66,9 @@ cd my-project
 /keep-working focus:docs           # Focus on documentation
 /keep-working reschedule:on        # Save state for session continuity
 /keep-working focus:api reschedule:on  # Combine options
+/keep-working local:assist          # Enable local AI assistance (reduced cost)
+/keep-working local:full            # Full local AI mode (zero cost)
+/keep-working local:assist focus:tests  # Combine with focus
 ```
 
 **Available focus areas:** `frontend`, `backend`, `api`, `tests`, `docs`, `refactor`, `performance`, `security`, `ui`, `content`, `creative`
@@ -230,6 +234,45 @@ Agents working → Tokens exhausted → All processes stop
 - Starts a new Claude session with `/keep-working:resume`
 
 **Cancel the wait:** `touch .keep-working/.guard-stop`
+
+## Local AI Integration
+
+Offload tasks to a local AI model running on your machine to reduce API costs. Three modes:
+
+| Mode | Command | Behavior | Cost |
+|------|---------|----------|------|
+| Off (default) | `/keep-working` | All tasks use paid models | Full |
+| Assist | `/keep-working local:assist` | Paid leads, local handles simple tasks | Reduced |
+| Full | `/keep-working local:full` | All tasks handled locally | Free |
+
+```bash
+# Start with local AI assistance
+/keep-working local:assist
+
+# Check local AI status mid-session
+/keep-working:local-status
+
+# Full local mode (zero API cost)
+/keep-working local:full focus:tests
+```
+
+**Requirements:**
+- [LocalAI Gateway](https://github.com/k1bot2026/LocalAI) running on `localhost:5577`
+- Ollama with Qwen2.5-Coder-7B model
+
+**How it works:**
+- Tasks are classified by complexity (simple/moderate/complex)
+- In `assist` mode: simple and moderate tasks go to the local model; complex tasks stay with paid agents
+- The local model reports confidence (high/medium/low) on every response
+- High confidence -> accepted automatically
+- Medium confidence -> flagged for agent review
+- Low confidence or escalation -> sent to paid agent instead
+
+**Check savings:**
+```bash
+/keep-working:local-status
+# Shows: local completions, paid completions, estimated savings %
+```
 
 ## Skills & MCP Integration
 

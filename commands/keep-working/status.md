@@ -37,6 +37,14 @@ Top remaining tasks:
 3. [next task]
 ```
 
+### LocalAI (conditional)
+
+If `local` exists in config.json and `local.mode` is not "off", append to the status output:
+
+```
+LocalAI:   [mode] — [local_completions] local / [paid_completions] paid / [savings]% saved
+```
+
 ## Important
 
 - Do NOT call TeamDelete, shutdown, or any action that modifies the team

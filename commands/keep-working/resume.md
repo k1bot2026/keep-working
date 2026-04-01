@@ -23,6 +23,7 @@ Verify:
 - `config.json` has valid `version`, `team_name`, `roles`
 - `BACKLOG.md` has unchecked tasks remaining
 - If no tasks remain: run project analysis to generate new ones (same as fresh start Phase 2)
+- If `local` config exists and `local.mode` is not "off": verify LocalAI gateway is still running (`curl -s http://localhost:5577/health`). If unreachable, warn user and fall back to `local.mode = "off"` for this session.
 
 ### 3. Update State Files
 

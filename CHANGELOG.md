@@ -1,5 +1,19 @@
 # Changelog
 
+## [1.3.0] - 2026-04-01
+
+### Added
+- **Local AI modes** — `local:off` (default), `local:assist` (hybrid), `local:full` (all local)
+- **`/keep-working:local-status`** — New command to check LocalAI gateway status and session savings
+- **Task delegation** — Simple/moderate tasks automatically delegated to local model in assist mode
+- **Confidence-based routing** — High confidence accepted, medium flagged for review, low escalated to paid
+- **Cost tracking** — Real-time tracking of local vs paid completions with savings percentage
+
+### Changed
+- `/keep-working:status` now shows LocalAI stats when active
+- `/keep-working:resume` verifies gateway availability when local mode is active
+- Session config includes local AI settings and stats
+
 ## [1.2.0] - 2026-03-27
 
 ### Added

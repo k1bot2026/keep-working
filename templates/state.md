@@ -17,6 +17,7 @@
 - **Focus:** [FOCUS_AREA or "none"]
 - **Commit per task:** [true/false]
 - **Quality gates:** [true/false]
+- **Local AI:** [mode] (gateway: [url])
 
 ---
 

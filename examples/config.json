@@ -25,5 +25,15 @@
     "inactivity_threshold_minutes": 5,
     "auto_resume": true,
     "notify": true
+  },
+  "local": {
+    "mode": "off",
+    "gateway_url": "http://localhost:5577",
+    "stats": {
+      "local_completions": 0,
+      "paid_completions": 0,
+      "parked_tasks": 0,
+      "escalations": 0
+    }
   }
 }

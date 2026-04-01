@@ -8,6 +8,9 @@ $ARGUMENTS
 Options:
 - `focus:<area>` — Prioritize a specific area (frontend, backend, api, tests, docs, refactor, performance, security, ui, content, creative)
 - `reschedule:on` — Save state for session continuity
+- `local:off` — All tasks use paid models only (default)
+- `local:assist` — Paid model leads, simple/moderate tasks delegated to local AI (reduced cost)
+- `local:full` — All tasks handled by local AI model (zero API cost)
 
 ---
 
@@ -93,6 +96,11 @@ Detect what tools are available to the agents beyond the defaults:
 
 Agents should ALWAYS use project-installed skills and MCPs when relevant to their work. They don't need permission — if the tool is installed, it's available.
 
+9. **Check LocalAI availability** — If `local:assist` or `local:full` is specified:
+   - Check if LocalAI gateway is running: `curl -s http://localhost:5577/health`
+   - If not available: warn user "LocalAI gateway not running. Install from /Volumes/ProjectData/LocalAI or run without --local"
+   - If available: record local mode in config
+
 ### Phase 3: Initialize State Directory
 
 Create `.keep-working/` in the project root with these files:
@@ -125,6 +133,16 @@ Create `.keep-working/` in the project root with these files:
        "inactivity_threshold_minutes": 5,
        "auto_resume": true,
        "notify": true
+     },
+     "local": {
+       "mode": "off",
+       "gateway_url": "http://localhost:5577",
+       "stats": {
+         "local_completions": 0,
+         "paid_completions": 0,
+         "parked_tasks": 0,
+         "escalations": 0
+       }
      }
    }
    ```
@@ -186,6 +204,14 @@ Load the full orchestrator protocol from `@references/lead-protocol.md` and foll
 **Summary of lead behavior:**
 
 **On "TASK DONE" message from agent:**
+0. **Local delegation check** — If `local.mode` is "assist" or "full":
+   - Before assigning a new task, classify its complexity
+   - If the task is simple/moderate AND mode is "assist", OR mode is "full":
+     - Send the task to LocalAI: `curl -s -X POST http://localhost:5577/v1/localai/query -H 'Content-Type: application/json' -d '{"prompt": "<task description>"}'`
+     - If confidence is "high": accept the result, mark task done, increment local_completions
+     - If confidence is "medium": flag for agent review (agent verifies the local output)
+     - If confidence is "low" or escalation_recommended: skip local, assign to paid agent as normal
+   - Update stats in config.json
 1. Edit `.keep-working/BACKLOG.md` — check off the completed task
 2. Edit `.keep-working/SESSION-LOG.md` — log what was done
 3. Done. Wait for next message.
